@@ -57,11 +57,20 @@ st.markdown("""
 st.title('🏠 Real Estate Analytics Dashboard')
 st.markdown("Explore property trends and market insights through interactive visualizations.")
 
-# Cache data loading
-@st.cache_data
+import os
+
+# For files in the root 'data' folder
+
+
+
+@st.cache_data()
 def load_data():
-    new_df = pd.read_csv('C:/Users/KIIT0001/Desktop/Campusx_Project/Real_Estate/pages/Analysis_datasets/data_viz1.csv')
-    feature_text = pickle.load(open('C:/Users/KIIT0001/Desktop/Campusx_Project/Real_Estate/pages/Analysis_datasets/feature_text.pkl','rb'))
+    base_dir = os.path.dirname(__file__)  # Directory of the current script
+    csv_path = os.path.join(base_dir, 'Analysis_datasets', 'data_viz1.csv')
+    pkl_path = os.path.join(base_dir, 'Analysis_datasets', 'feature_text.pkl')
+    new_df = pd.read_csv(csv_path)
+    with open(pkl_path, 'rb') as f:
+        feature_text = pickle.load(f)
     return new_df, feature_text
 
 new_df, feature_text = load_data()

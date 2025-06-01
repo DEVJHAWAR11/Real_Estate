@@ -2,6 +2,7 @@ import streamlit as st
 import pickle
 import pandas as pd
 import numpy as np
+import os
 
 # Configure page settings first
 st.set_page_config(
@@ -11,12 +12,14 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-@st.cache_data
+@st.cache_data()
 def load_data():
-    location_df = pd.read_pickle('C:/Users/KIIT0001/Desktop/Campusx_Project/Real_Estate/pages/Recommender_System/location_distance.pkl')
-    cosine_sim1 = pd.read_pickle('C:/Users/KIIT0001/Desktop/Campusx_Project/Real_Estate/pages/Recommender_System/cosine_sim1.pkl')
-    cosine_sim2 = pd.read_pickle('C:/Users/KIIT0001/Desktop/Campusx_Project/Real_Estate/pages/Recommender_System/cosine_sim2.pkl')
-    cosine_sim3 = pd.read_pickle('C:/Users/KIIT0001/Desktop/Campusx_Project/Real_Estate/pages/Recommender_System/cosine_sim3.pkl')
+    base_dir = os.path.dirname(__file__)
+    recommender_dir = os.path.join(base_dir, 'Recommender_System')
+    location_df = pd.read_pickle(os.path.join(recommender_dir, 'location_distance.pkl'))
+    cosine_sim1 = pd.read_pickle(os.path.join(recommender_dir, 'cosine_sim1.pkl'))
+    cosine_sim2 = pd.read_pickle(os.path.join(recommender_dir, 'cosine_sim2.pkl'))
+    cosine_sim3 = pd.read_pickle(os.path.join(recommender_dir, 'cosine_sim3.pkl'))
     return location_df, cosine_sim1, cosine_sim2, cosine_sim3
 
 location_df, cosine_sim1, cosine_sim2, cosine_sim3 = load_data()
