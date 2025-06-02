@@ -83,8 +83,8 @@ An AI-powered recommendation engine that suggests similar properties based on lo
 
 1. **Clone the repository:**
     ```
-    git clone https://github.com/your-username/real-estate-ai-suite.git
-    cd real-estate-ai-suite
+    git clone https://github.com/DEVJHAWAR11/Real_Estate.git
+    cd Real_Estate
     ```
 2. **Install dependencies:**
     ```
