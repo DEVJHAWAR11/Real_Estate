@@ -100,7 +100,7 @@ An AI-powered recommendation engine that suggests similar properties based on lo
 ## 🌐 Live Demo
 
 Check out the live demo here:  
-[https://realestate-analysis-ml.streamlit.app/]((https://realestate-analysis-ml.streamlit.app/))
+[https://realestate-analysis-ml.streamlit.app/](https://realestate-analysis-ml.streamlit.app/)
 
 ---
 
