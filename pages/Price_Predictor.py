@@ -116,13 +116,6 @@ with open(df_path, 'rb') as file:
 import gdown
 
 
-with open("pipeline.pkl", "rb") as f:
-    header = f.read(2)
-    print(header)  # Should print something like b'\x80\x03'
-with open("pipeline.pkl", "r") as f:
-    print(f.read(200))
-
-
 
 
 @st.cache_data
