@@ -106,13 +106,24 @@ background: linear-gradient(90deg, #D8B5FF 0%, #1EAE98 100%);
 #     st.stop()
 
 import os
+import requests
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 df_path = os.path.join(base_dir, 'df.pkl')
-pipeline_path = os.path.join(base_dir, 'pipeline.pkl')
-
 with open(df_path, 'rb') as file:
     df = pickle.load(file)
+
+@st.cache_data
+def download_from_gdrive(file_id, destination):
+    url = f"https://drive.google.com/uc?id={file_id}"
+    response = requests.get(url)
+    with open(destination, 'wb') as f:
+        f.write(response.content)
+    return destination
+
+file_id = "1lDdRAhSGFokPiSOLe2AXXivRopg6IRUU"  # your pipeline.pkl Google Drive ID
+pipeline_path = download_from_gdrive(file_id, 'pipeline.pkl')
+
 with open(pipeline_path, 'rb') as file:
     pipeline = pickle.load(file)
 
