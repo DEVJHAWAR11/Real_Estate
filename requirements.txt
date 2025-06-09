@@ -8,3 +8,4 @@ dill
 streamlit
 pydantic
 wordcloud
+gdown
