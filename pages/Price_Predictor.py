@@ -116,6 +116,15 @@ with open(df_path, 'rb') as file:
 import gdown
 
 
+with open("pipeline.pkl", "rb") as f:
+    header = f.read(2)
+    print(header)  # Should print something like b'\x80\x03'
+with open("pipeline.pkl", "r") as f:
+    print(f.read(200))
+
+
+
+
 @st.cache_data
 def download_from_gdrive(file_id, destination):
     url = f"https://drive.google.com/uc?id={file_id}"
@@ -127,6 +136,10 @@ pipeline_path = download_from_gdrive(file_id, "pipeline.pkl")
 
 with open(pipeline_path, "rb") as file:
     pipeline = pickle.load(file)
+
+    
+
+
 
 
 
