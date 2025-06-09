@@ -131,7 +131,7 @@ def download_from_gdrive(file_id, destination):
     gdown.download(url, destination, quiet=False)
     return destination
 
-file_id = "1-DLktp0rP9v8BBWBjkteKFbvN4BmNOLI"
+file_id = "1alSmJrC2k5kbGg1-tfeqF_eLQ8yQ0_C7"
 pipeline_path = download_from_gdrive(file_id, "pipeline.pkl")
 
 with open(pipeline_path, "rb") as file:
