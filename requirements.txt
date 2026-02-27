@@ -5,7 +5,7 @@ matplotlib
 plotly
 scikit-learn==1.6.1
 dill
-streamlit
+streamlit>=1.35.0
 pydantic
 wordcloud
 gdown
