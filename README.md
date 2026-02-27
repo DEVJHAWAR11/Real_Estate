@@ -172,4 +172,4 @@ streamlit run Home.py
 
 ## Author
 
-**Dev Jhawar** — [GitHub](https://github.com/DEVJHAWAR11) | KIIT University, CSE (CGPA: 9.66)
+**Dev Jhawar** — [GitHub](https://github.com/DEVJHAWAR11) | KIIT University
