@@ -7,7 +7,14 @@
 [![Scikit-learn](https://img.shields.io/badge/Scikit--learn-ML%20Pipeline-orange)](https://scikit-learn.org)
 [![Plotly](https://img.shields.io/badge/Plotly-Interactive%20Charts-purple)](https://plotly.com)
 
-> 🌐 **Live Demo:** [realestate-analysis-ml.streamlit.app](https://realestate-analysis-ml.streamlit.app/)
+---
+
+## 🔗 Links
+
+| | |
+|---|---|
+| 🌐 **Live App** | [realestate-analysis-ml.streamlit.app](https://realestate-analysis-ml.streamlit.app/) |
+| 🎬 **Video Demo** | [Watch on LinkedIn](https://www.linkedin.com/posts/dev-jhawar11_realestate-ai-streamlit-activity-7335515596651929600-tioS) |
 
 ---
 
@@ -172,4 +179,4 @@ streamlit run Home.py
 
 ## Author
 
-**Dev Jhawar** — [GitHub](https://github.com/DEVJHAWAR11) | KIIT University
+**Dev Jhawar** — [GitHub](https://github.com/DEVJHAWAR11) | [LinkedIn](https://www.linkedin.com/in/dev-jhawar11) | KIIT University, CSE (CGPA: 9.66)
