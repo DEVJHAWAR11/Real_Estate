@@ -4,6 +4,7 @@ import plotly.express as px
 import pickle
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
+import seaborn as sns
 import os
 
 # Configuration
@@ -40,6 +41,17 @@ st.markdown("""
     color: #fff !important;
 }
 </style>
+""", unsafe_allow_html=True)
+
+# Custom CSS
+st.markdown("""
+    <style>
+        .main {background-color: #f5f5f5;}
+        .stSelectbox:first-child {width: 300px;}
+        .stPlotlyChart {border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);}
+        .css-1vq4p4l {padding: 2rem;}
+        [data-testid="stHeader"] {background-color: #003366;}
+    </style>
 """, unsafe_allow_html=True)
 
 # Title and description
@@ -116,7 +128,7 @@ with col1:
             size="built_up_area",
             hover_name="sector",
             title=f"<b>{property_type.title()} Pricing Dynamics</b>",
-            labels={'built_up_area': 'Built-up Area (sqft)', 'price': 'Price (₹ Cr)'}
+            labels={'built_up_area': 'Built-up Area (sqft)', 'price': 'Price (₹)'}
         )
         fig_scatter.update_traces(marker=dict(opacity=0.7, line=dict(width=1, color='DarkSlateGrey')))
         st.plotly_chart(fig_scatter, use_container_width=True)
@@ -170,7 +182,7 @@ with col2:
     # Quick Stats
     with st.expander("📌 Key Statistics", expanded=True):
         st.metric("Total Properties", len(filtered_df))
-        st.metric("Average Price", f"₹{filtered_df['price'].mean():,.2f} Cr")
+        st.metric("Average Price", f"₹{filtered_df['price'].mean():,.0f}CR")
         st.metric("Avg Price/Sqft", f"₹{filtered_df['price_per_sqft'].mean():,.0f}")
         st.metric("Most Common BHK", filtered_df['bedRoom'].mode()[0])
 
