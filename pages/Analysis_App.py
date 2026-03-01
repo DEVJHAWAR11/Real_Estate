@@ -4,59 +4,18 @@ import plotly.express as px
 import pickle
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
-import seaborn as sns
 import os
 
-# Configuration
 st.set_page_config(
-    page_title="Real Estate Analytics Dashboard",
+    page_title="Real Estate Analytics",
     page_icon="🏠",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-st.markdown("""
-<style>
-[data-testid="stSidebar"] {
-    background: linear-gradient(135deg, #232526 0%, #2c5364 100%);
-    color: #f8fafc;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    box-shadow: 2px 0 12px rgba(0,0,0,0.2);
-}
-[data-testid="stSidebarNav"] ul li a {
-    color: #f8fafc !important;
-    font-size: 1.1rem;
-    font-weight: 500;
-    border-radius: 10px;
-    padding: 0.5rem 1.2rem;
-    transition: background 0.2s, color 0.2s;
-}
-[data-testid="stSidebarNav"] ul li a:hover {
-    background: #3a3f4b;
-    color: #60a5fa !important;
-}
-[data-testid="stSidebarNav"] ul li a.active {
-    background: #4f8cff;
-    color: #fff !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
-# Custom CSS
-st.markdown("""
-    <style>
-        .main {background-color: #f5f5f5;}
-        .stSelectbox:first-child {width: 300px;}
-        .stPlotlyChart {border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);}
-        .css-1vq4p4l {padding: 2rem;}
-        [data-testid="stHeader"] {background-color: #003366;}
-    </style>
-""", unsafe_allow_html=True)
-
-# Title and description
 st.title('🏠 Real Estate Analytics Dashboard')
-st.markdown("Explore property trends and market insights through interactive visualizations.")
+st.caption("Explore property trends and market insights through interactive visualizations.")
+st.divider()
 
 @st.cache_data()
 def load_data():
@@ -74,7 +33,7 @@ new_df, feature_text = load_data()
 with st.sidebar:
     st.header("🔍 Filters")
     price_range = st.slider(
-        "Select Price Range (Cr)",
+        "Price Range (Cr)",
         min_value=int(new_df['price'].min()),
         max_value=int(new_df['price'].max()),
         value=(int(new_df['price'].min()), int(new_df['price'].max()))
@@ -90,13 +49,12 @@ filtered_df = new_df[
     (new_df['sector'].isin(sectors if sectors else new_df['sector'].unique()))
 ]
 
-# Main columns layout
+# Layout
 col1, col2 = st.columns([3, 1])
 
 with col1:
-    # Interactive Map
     with st.expander("🌍 Sector Price Distribution Map", expanded=True):
-        group_df = filtered_df.groupby('sector').mean(numeric_only=True)[['price','price_per_sqft','built_up_area','latitude','longitude']]
+        group_df = filtered_df.groupby('sector').mean(numeric_only=True)[['price', 'price_per_sqft', 'built_up_area', 'latitude', 'longitude']]
         fig_map = px.scatter_mapbox(
             group_df,
             lat="latitude",
@@ -109,12 +67,11 @@ with col1:
             width=1200,
             height=600,
             hover_name=group_df.index,
-            title="<b>Price per Sqft & Property Size Distribution</b>"
+            title="Price per Sqft & Property Size Distribution"
         )
         fig_map.update_layout(margin=dict(l=20, r=20, t=40, b=20))
         st.plotly_chart(fig_map, use_container_width=True)
 
-    # Property Type Analysis
     st.subheader("📊 Property Type Insights")
     tab1, tab2, tab3 = st.tabs(["Area vs Price", "Price Distribution", "BHK Analysis"])
 
@@ -127,7 +84,7 @@ with col1:
             color="bedRoom",
             size="built_up_area",
             hover_name="sector",
-            title=f"<b>{property_type.title()} Pricing Dynamics</b>",
+            title=f"{property_type.title()} Pricing Dynamics",
             labels={'built_up_area': 'Built-up Area (sqft)', 'price': 'Price (₹)'}
         )
         fig_scatter.update_traces(marker=dict(opacity=0.7, line=dict(width=1, color='DarkSlateGrey')))
@@ -140,7 +97,7 @@ with col1:
             color="property_type",
             marginal="box",
             nbins=50,
-            title="<b>Price Distribution Comparison</b>"
+            title="Price Distribution Comparison"
         )
         st.plotly_chart(fig_dist, use_container_width=True)
 
@@ -151,7 +108,7 @@ with col1:
                 filtered_df,
                 names='bedRoom',
                 hole=0.4,
-                title="<b>BHK Distribution</b>"
+                title="BHK Distribution"
             )
             st.plotly_chart(fig_pie, use_container_width=True)
         with col_b:
@@ -160,12 +117,11 @@ with col1:
                 x='bedRoom',
                 y='price',
                 color='property_type',
-                title="<b>BHK Price Comparison</b>"
+                title="BHK Price Comparison"
             )
             st.plotly_chart(fig_box, use_container_width=True)
 
 with col2:
-    # Word Cloud
     with st.expander("📈 Feature Word Cloud", expanded=True):
         wordcloud = WordCloud(
             width=400,
@@ -179,13 +135,11 @@ with col2:
         plt.axis("off")
         st.pyplot(plt.gcf())
 
-    # Quick Stats
     with st.expander("📌 Key Statistics", expanded=True):
         st.metric("Total Properties", len(filtered_df))
         st.metric("Average Price", f"₹{filtered_df['price'].mean():,.0f}CR")
         st.metric("Avg Price/Sqft", f"₹{filtered_df['price_per_sqft'].mean():,.0f}")
         st.metric("Most Common BHK", filtered_df['bedRoom'].mode()[0])
 
-# Footer
-st.markdown("---")
-st.markdown("🔍 *Hover over charts for detailed tooltips* | 🖱️ *Click and drag to zoom* | 🔄 *Double-click to reset view*")
+st.divider()
+st.caption("🔍 Hover over charts for tooltips · 🖱️ Click and drag to zoom · 🔄 Double-click to reset")
